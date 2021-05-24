@@ -1,13 +1,14 @@
 
 
-int state = 0;
-/*
-state
-0 = idle
+int8_t state = 0;
+int8_t lastState = -1;
 
-*/
+#define STATE_IDLE 0
+
   unsigned long lastTime = 0;
   unsigned long time = 0; 
+
+  
 void setup() {
   initLCD();
   startFona();
@@ -19,9 +20,10 @@ void loop() {
     time = millis();
   
     switch (state){
-    case 0: {
+    case STATE_IDLE: {
       if (blockInfo(time)) { 
-        main_menu();
+        main_menu(lastState);
+        lastState = STATE_IDLE;
       }
       break;
     }

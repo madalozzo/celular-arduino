@@ -29,17 +29,20 @@ void navMenu (String ok, String nok) {
 }
 
 
-void main_menu(){
-  LCD.CleanAll(WHITE); 
-  LCD.FontModeConf(Font_6x8, FM_ANL_AAA, BLACK_BAC); 
+void main_menu(int8_t lastState){
+  if (lastState != STATE_IDLE) {
+    LCD.CleanAll(WHITE);   
+    LCD.FontModeConf(Font_6x8, FM_ANL_AAA, BLACK_BAC); 
+  }
+  
+  
   
   // battery
   LCD.CharGotoXY(100,0);
   uint16_t battery = getBattery();
   LCD.print(battery); 
   LCD.print('%'); 
-  
-  
+    
   // signal
   LCD.CharGotoXY(70,0);
   LCD.print(getRSSI()); 
@@ -48,6 +51,16 @@ void main_menu(){
   LCD.CharGotoXY(0,32);
   LCD.print(networkStatus()); 
   navMenu("menu", "");
+
+  int8_t smsnum = getSMSNumber();
+  if (smsnum == 0) {
+    Serial.println(F("no SMSs"));
+  } else {
+    drawMail(0,1);
+    LCD.CharGotoXY(12,0);
+    LCD.print(smsnum);
+  }
+  
 }
 
 

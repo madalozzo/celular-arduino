@@ -165,3 +165,7 @@ String networkStatus() {
 uint8_t getRSSI() {
   return fona.getRSSI();
 }
+
+int8_t getSMSNumber () {
+  return fona.getNumSMS();
+}
