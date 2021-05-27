@@ -125,7 +125,8 @@ void startFona(){
   // the following line then redirects over SSL will be followed.
   //fona.setHTTPSRedirect(true);
 
-
+ //custom
+ setExternalAudio();
 }
 
 void loopFona(){
@@ -133,8 +134,10 @@ void loopFona(){
   char phone[32] = {0};
   // Check for an incoming call.  Will return true if a call is incoming.
   if(fona.incomingCallNumber(phone)){
-    Serial.print("Ring: "); Serial.println(phone);
+    Serial.print("chamando: "); 
+    Serial.println(phone);
     lcdRinging(phone);
+    state = STATE_CALLING;
   }
   
 }
@@ -153,12 +156,12 @@ uint16_t getBattery () {
 String networkStatus() {
         uint8_t n = fona.getNetworkStatus();
         String status = "error";
-        if (n == 0) status = F("Nao registrado");
-        if (n == 1) status = F("Registrado (home)");
-        if (n == 2) status = F("Não registrado (searching)");
-        if (n == 3) status = F("Denied");
-        if (n == 4) status = F("Unknown");
-        if (n == 5) status = F("Registrado (roaming)");
+        if (n == 0) status = F("Nao registrado            ");
+        if (n == 1) status = F("Registrado (home)         ");
+        if (n == 2) status = F("Nao registrado (searching)");
+        if (n == 3) status = F("Denied                    ");
+        if (n == 4) status = F("Unknown                   ");
+        if (n == 5) status = F("Registrado (roaming)      ");
         return status;
 }
 
@@ -168,4 +171,15 @@ uint8_t getRSSI() {
 
 int8_t getSMSNumber () {
   return fona.getNumSMS();
+}
+
+void setExternalAudio(){
+        // Set External output
+        if (! fona.setAudio(FONA_EXTAUDIO)) {
+          Serial.println(F("Failed"));
+        } else {
+          Serial.println(F("OK!"));
+        }
+
+        fona.setMicVolume(FONA_EXTAUDIO, 5);
 }

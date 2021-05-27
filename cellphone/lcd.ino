@@ -64,15 +64,12 @@ void main_menu(int8_t lastState){
 }
 
 
-void lcdRinging(char phoneNumber){
+void lcdRinging(char phoneNumber[32]){
   LCD.CleanAll(WHITE);
-  LCD.FontModeConf(Font_6x8, FM_ANL_AAA, BLACK_BAC); 
-  LCD.CharGotoXY(0,0);
+  LCD.CharGotoXY(45,15);
    
-  LCD.println(F("RING!"));
-  LCD.print(F("Phone Number:"));
-  String myString = String(phoneNumber);
-  LCD.println(myString);
+   LCD.DispStringAt("Chamando!", 37, 15);
+   LCD.DispStringAt(phoneNumber, 28, 30);
   navMenu ("atender", "recusar");
 }
 

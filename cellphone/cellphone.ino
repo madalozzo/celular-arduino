@@ -4,6 +4,7 @@ int8_t state = 0;
 int8_t lastState = -1;
 
 #define STATE_IDLE 0
+#define STATE_CALLING 1
 
   unsigned long lastTime = 0;
   unsigned long time = 0; 
@@ -12,6 +13,7 @@ int8_t lastState = -1;
 void setup() {
   initLCD();
   startFona();
+  
   time = millis();
 }
 
@@ -20,14 +22,20 @@ void loop() {
     time = millis();
   
     switch (state){
-    case STATE_IDLE: {
-      if (blockInfo(time)) { 
-        main_menu(lastState);
-        lastState = STATE_IDLE;
+      case STATE_IDLE: {
+        if (blockInfo(time)) { 
+          main_menu(lastState);
+          lastState = STATE_IDLE;
+        }
+        break;
       }
-      break;
-    }
-}  
+      case STATE_CALLING: {
+        //if botao de atender
+
+        //if botao de recusar
+        break;
+      }
+    }  
     loopFona();
 }
 
