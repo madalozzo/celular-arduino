@@ -28,7 +28,7 @@ Este projeto é um celular básico, do estilo dos Nokia's indestrutíveis do in�
 Você vai precisar das seguintes libs instaladas:
 - Adafruit FONA Library
 - Keypad do Mark Stanley
-
+- Lib do LCD deste link https://wiki.seeedstudio.com/I2C_LCD/
 
 
 
